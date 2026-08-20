@@ -25,29 +25,59 @@ async function getFilms(): Promise<Film[]> {
 
 export default async function HomePage() {
   const films = await getFilms();
+  const featured = films[0];
+  const rest = films.slice(1);
 
   return (
     <main>
       <header className="header">
-        <h1>HausaFlix</h1>
+        <div>
+          <h1>HausaFlix</h1>
+          <div className="tagline">Kalli fina-finan Hausa</div>
+        </div>
       </header>
 
       {films.length === 0 ? (
         <p className="empty">Babu fina-finai a yanzu. Dawo baya.</p>
       ) : (
-        <div className="grid">
-          {films.map((film) => (
-            <a key={film.id} href={`/watch/${film.id}`} className="card">
-              {film.thumbnail_url ? (
-                <img src={film.thumbnail_url} alt={film.title} />
-              ) : (
-                <div style={{ aspectRatio: "2/3", background: "#1a1a1a", borderRadius: 8 }} />
+        <>
+          {featured && (
+            <section className="hero">
+              {featured.thumbnail_url && (
+                <img src={featured.thumbnail_url} alt={featured.title} />
               )}
-              <div className="title">{film.title}</div>
-              {film.category && <div className="category">{film.category}</div>}
-            </a>
-          ))}
-        </div>
+              <div className="hero-content">
+                <span className="hero-badge">Sabon Fim</span>
+                <h2 className="hero-title">{featured.title}</h2>
+                {featured.category && (
+                  <div className="hero-meta">{featured.category}</div>
+                )}
+                <div className="hero-actions">
+                  <a href={`/watch/${featured.id}`} className="btn-play">
+                    Kalli Yanzu
+                  </a>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <div className="section-title">Duk Fina-finai</div>
+          <div className="grid">
+            {(featured ? rest : films).map((film) => (
+              <a key={film.id} href={`/watch/${film.id}`} className="card">
+                <div className="thumb-wrap">
+                  {film.thumbnail_url ? (
+                    <img src={film.thumbnail_url} alt={film.title} />
+                  ) : (
+                    <div style={{ aspectRatio: "2/3", background: "#1a1a1a" }} />
+                  )}
+                </div>
+                <div className="title">{film.title}</div>
+                {film.category && <div className="category">{film.category}</div>}
+              </a>
+            ))}
+          </div>
+        </>
       )}
     </main>
   );
