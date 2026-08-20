@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import SearchGrid from "./components/SearchGrid";
 
 export const revalidate = 0;
 
@@ -26,7 +27,6 @@ async function getFilms(): Promise<Film[]> {
 export default async function HomePage() {
   const films = await getFilms();
   const featured = films[0];
-  const rest = films.slice(1);
 
   return (
     <main>
@@ -61,22 +61,7 @@ export default async function HomePage() {
             </section>
           )}
 
-          <div className="section-title">Duk Fina-finai</div>
-          <div className="grid">
-            {(featured ? rest : films).map((film) => (
-              <a key={film.id} href={`/watch/${film.id}`} className="card">
-                <div className="thumb-wrap">
-                  {film.thumbnail_url ? (
-                    <img src={film.thumbnail_url} alt={film.title} />
-                  ) : (
-                    <div style={{ aspectRatio: "2/3", background: "#1a1a1a" }} />
-                  )}
-                </div>
-                <div className="title">{film.title}</div>
-                {film.category && <div className="category">{film.category}</div>}
-              </a>
-            ))}
-          </div>
+          <SearchGrid films={films} />
         </>
       )}
     </main>
