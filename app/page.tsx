@@ -33,12 +33,12 @@ export default async function HomePage() {
       <header className="header">
         <div>
           <h1>HausaFlix</h1>
-          <div className="tagline">Kalli fina-finan Hausa</div>
+          <div className="tagline">Watch the best Hausa movies</div>
         </div>
       </header>
 
       {films.length === 0 ? (
-        <p className="empty">Babu fina-finai a yanzu. Dawo baya.</p>
+        <p className="empty">No movies available yet. Please check back later.</p>
       ) : (
         <>
           {featured && (
@@ -47,14 +47,14 @@ export default async function HomePage() {
                 <img src={featured.thumbnail_url} alt={featured.title} />
               )}
               <div className="hero-content">
-                <span className="hero-badge">Sabon Fim</span>
+                <span className="hero-badge">New Release</span>
                 <h2 className="hero-title">{featured.title}</h2>
                 {featured.category && (
                   <div className="hero-meta">{featured.category}</div>
                 )}
                 <div className="hero-actions">
                   <a href={`/watch/${featured.id}`} className="btn-play">
-                    Kalli Yanzu
+                    Watch Now
                   </a>
                 </div>
               </div>
@@ -66,4 +66,4 @@ export default async function HomePage() {
       )}
     </main>
   );
-}
+                }
