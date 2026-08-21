@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
+import DownloadButton from "../../components/DownloadButton";
 
 export const revalidate = 0;
 
@@ -8,12 +9,13 @@ type Film = {
   title: string;
   category: string | null;
   bunny_video_id: string;
+  price: number | null;
 };
 
 async function getFilm(id: string): Promise<Film | null> {
   const { data, error } = await supabase
     .from("films")
-    .select("id, title, category, bunny_video_id")
+    .select("id, title, category, bunny_video_id, price")
     .eq("id", id)
     .single();
 
@@ -52,6 +54,15 @@ export default async function WatchPage({
       </div>
       <div className="watch-title">{film.title}</div>
       {film.category && <div className="watch-category">{film.category}</div>}
+
+      <div className="download-section">
+        <DownloadButton
+          filmId={film.id}
+          title={film.title}
+          price={film.price || 0}
+          bunnyVideoId={film.bunny_video_id}
+        />
+      </div>
     </main>
   );
 }
