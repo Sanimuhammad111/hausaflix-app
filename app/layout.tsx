@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "HausaFlix",
-  description: "Kalli fina-finan Hausa mafi kyau",
+  description: "Watch the best Hausa movies",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ha">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
