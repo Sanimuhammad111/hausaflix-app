@@ -41,7 +41,7 @@ export default async function WatchPage({
   return (
     <main className="player-wrap">
       <a href="/" className="back-link">
-        ← Koma baya
+        ← Back
       </a>
       <div className="player-frame">
         <iframe
