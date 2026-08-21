@@ -1,22 +1,38 @@
-.search-wrap {
-  padding: 16px 24px 4px;
+.download-section {
+  margin-top: 20px;
 }
 
-.search-input {
-  width: 100%;
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #e50914;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.download-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+}
+
+.download-email-input {
   background: #1a1a1a;
   border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 12px 14px;
+  border-radius: 6px;
+  padding: 10px 12px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
 }
 
-.search-input::placeholder {
-  color: #777;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #e50914;
+.download-error {
+  color: #ff6b6b;
+  font-size: 13px;
 }
