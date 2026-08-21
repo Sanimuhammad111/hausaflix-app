@@ -24,11 +24,34 @@ export default function DownloadButton({
   const [showEmailBox, setShowEmailBox] = useState(false);
   const [status, setStatus] = useState<"idle" | "verifying" | "ready" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-
-  const pullZone = process.env.NEXT_PUBLIC_BUNNY_PULL_ZONE;
-  const downloadUrl = `https://${pullZone}.b-cdn.net/${bunnyVideoId}/play_720p.mp4`;
+  const [downloadUrl, setDownloadUrl] = useState("");
 
   const isFree = !price || price <= 0;
+
+  async function resolveDownloadUrl(): Promise<string | null> {
+    try {
+      const res = await fetch(`/api/download-url?videoId=${encodeURIComponent(bunnyVideoId)}`);
+      const data = await res.json();
+      if (data.ok) return data.url;
+      setErrorMsg(data.error || "Could not find a downloadable file for this video.");
+      return null;
+    } catch {
+      setErrorMsg("Could not reach the download service.");
+      return null;
+    }
+  }
+
+  async function handleFreeDownload() {
+    setStatus("verifying");
+    const url = await resolveDownloadUrl();
+    if (url) {
+      setDownloadUrl(url);
+      setStatus("ready");
+      window.location.href = url;
+    } else {
+      setStatus("error");
+    }
+  }
 
   function startPayment() {
     if (!email || !email.includes("@")) {
@@ -68,7 +91,13 @@ export default function DownloadButton({
       });
       const data = await res.json();
       if (data.ok) {
-        setStatus("ready");
+        const url = await resolveDownloadUrl();
+        if (url) {
+          setDownloadUrl(url);
+          setStatus("ready");
+        } else {
+          setStatus("error");
+        }
       } else {
         setStatus("error");
         setErrorMsg(data.error || "Payment could not be verified.");
@@ -81,9 +110,12 @@ export default function DownloadButton({
 
   if (isFree) {
     return (
-      <a href={downloadUrl} className="btn-download" download>
-        ⬇ Download
-      </a>
+      <div className="download-box">
+        <button className="btn-download" onClick={handleFreeDownload} disabled={status === "verifying"}>
+          {status === "verifying" ? "Preparing..." : "⬇ Download"}
+        </button>
+        {errorMsg && <div className="download-error">{errorMsg}</div>}
+      </div>
     );
   }
 
@@ -124,4 +156,4 @@ export default function DownloadButton({
       )}
     </>
   );
-              }
+}
