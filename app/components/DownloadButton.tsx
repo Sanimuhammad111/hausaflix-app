@@ -24,34 +24,9 @@ export default function DownloadButton({
   const [showEmailBox, setShowEmailBox] = useState(false);
   const [status, setStatus] = useState<"idle" | "verifying" | "ready" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [downloadUrl, setDownloadUrl] = useState("");
 
   const isFree = !price || price <= 0;
-
-  async function resolveDownloadUrl(): Promise<string | null> {
-    try {
-      const res = await fetch(`/api/download-url?videoId=${encodeURIComponent(bunnyVideoId)}`);
-      const data = await res.json();
-      if (data.ok) return data.url;
-      setErrorMsg(data.error || "Could not find a downloadable file for this video.");
-      return null;
-    } catch {
-      setErrorMsg("Could not reach the download service.");
-      return null;
-    }
-  }
-
-  async function handleFreeDownload() {
-    setStatus("verifying");
-    const url = await resolveDownloadUrl();
-    if (url) {
-      setDownloadUrl(url);
-      setStatus("ready");
-      window.location.href = url;
-    } else {
-      setStatus("error");
-    }
-  }
+  const downloadHref = `/api/download?videoId=${encodeURIComponent(bunnyVideoId)}&title=${encodeURIComponent(title)}`;
 
   function startPayment() {
     if (!email || !email.includes("@")) {
@@ -91,13 +66,7 @@ export default function DownloadButton({
       });
       const data = await res.json();
       if (data.ok) {
-        const url = await resolveDownloadUrl();
-        if (url) {
-          setDownloadUrl(url);
-          setStatus("ready");
-        } else {
-          setStatus("error");
-        }
+        setStatus("ready");
       } else {
         setStatus("error");
         setErrorMsg(data.error || "Payment could not be verified.");
@@ -110,18 +79,15 @@ export default function DownloadButton({
 
   if (isFree) {
     return (
-      <div className="download-box">
-        <button className="btn-download" onClick={handleFreeDownload} disabled={status === "verifying"}>
-          {status === "verifying" ? "Preparing..." : "⬇ Download"}
-        </button>
-        {errorMsg && <div className="download-error">{errorMsg}</div>}
-      </div>
+      <a href={downloadHref} className="btn-download">
+        ⬇ Download
+      </a>
     );
   }
 
   if (status === "ready") {
     return (
-      <a href={downloadUrl} className="btn-download" download>
+      <a href={downloadHref} className="btn-download">
         ⬇ Download Now
       </a>
     );
