@@ -29,17 +29,17 @@ export default function SearchGrid({ films }: { films: Film[] }) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Nemo fim ko category..."
+          placeholder="Search movies or category..."
           className="search-input"
         />
       </div>
 
       <div className="section-title">
-        {query ? `Sakamakon "${query}"` : "Duk Fina-finai"}
+        {query ? `Results for "${query}"` : "All Movies"}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="empty">Babu fim da ya dace da neman ka.</p>
+        <p className="empty">No movies match your search.</p>
       ) : (
         <div className="grid">
           {filtered.map((film) => (
