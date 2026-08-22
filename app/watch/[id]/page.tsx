@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import DownloadButton from "../../components/DownloadButton";
+import BackButton from "../../components/BackButton";
 
 export const revalidate = 0;
 
@@ -42,9 +43,7 @@ export default async function WatchPage({
 
   return (
     <main className="player-wrap">
-      <a href="/" className="back-link">
-        ← Back
-      </a>
+      <BackButton />
       <div className="player-frame">
         <iframe
           src={embedUrl}
