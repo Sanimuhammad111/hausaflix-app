@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Script from "next/script";
 
 declare global {
   interface Window {
@@ -95,8 +94,6 @@ export default function DownloadButton({
 
   return (
     <>
-      <Script src="https://js.paystack.co/v1/inline.js" strategy="afterInteractive" />
-
       {!showEmailBox ? (
         <button className="btn-download" onClick={() => setShowEmailBox(true)}>
           ⬇ Download — ₦{price}
@@ -122,4 +119,4 @@ export default function DownloadButton({
       )}
     </>
   );
-}
+                        }
