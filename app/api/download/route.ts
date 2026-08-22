@@ -44,10 +44,15 @@ export async function GET(req: NextRequest) {
     }
 
     const sourceUrl = `https://${pullZone}.b-cdn.net/${videoId}/play_${chosen}.mp4`;
-    const upstream = await fetch(sourceUrl);
+    const upstream = await fetch(sourceUrl, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; HausaFlixDownloader/1.0)" },
+    });
 
     if (!upstream.ok || !upstream.body) {
-      return new Response("Could not download the video file.", { status: 502 });
+      return new Response(
+        `Could not download the video file. URL: ${sourceUrl} | Status: ${upstream.status} ${upstream.statusText} | Resolutions found: ${resolutions.join(",")}`,
+        { status: 502 }
+      );
     }
 
     const safeTitle = title.replace(/[^a-z0-9\-_ ]/gi, "").trim() || "movie";
