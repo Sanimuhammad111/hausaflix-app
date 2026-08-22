@@ -31,10 +31,10 @@ export default async function HomePage() {
   return (
     <main>
       <header className="header">
-        <div>
+        <a href="/" className="logo-link">
           <h1>HausaFlix</h1>
           <div className="tagline">Watch the best Hausa movies</div>
-        </div>
+        </a>
       </header>
 
       {films.length === 0 ? (
@@ -66,4 +66,4 @@ export default async function HomePage() {
       )}
     </main>
   );
-                }
+}
