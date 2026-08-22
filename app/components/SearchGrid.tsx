@@ -9,18 +9,24 @@ type Film = {
   thumbnail_url: string | null;
 };
 
+const CATEGORIES = ["All", "Romance", "Action", "Drama", "Series"];
+
 export default function SearchGrid({ films }: { films: Film[] }) {
   const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return films;
-    return films.filter(
-      (f) =>
+    return films.filter((f) => {
+      const matchesQuery =
+        !q ||
         f.title.toLowerCase().includes(q) ||
-        (f.category ?? "").toLowerCase().includes(q)
-    );
-  }, [films, query]);
+        (f.category ?? "").toLowerCase().includes(q);
+      const matchesCategory =
+        activeCategory === "All" || f.category === activeCategory;
+      return matchesQuery && matchesCategory;
+    });
+  }, [films, query, activeCategory]);
 
   return (
     <>
@@ -34,8 +40,20 @@ export default function SearchGrid({ films }: { films: Film[] }) {
         />
       </div>
 
+      <div className="category-nav">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`category-chip ${activeCategory === cat ? "active" : ""}`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
       <div className="section-title">
-        {query ? `Results for "${query}"` : "All Movies"}
+        {query ? `Results for "${query}"` : activeCategory === "All" ? "All Movies" : activeCategory}
       </div>
 
       {filtered.length === 0 ? (
