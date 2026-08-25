@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import DownloadButton from "../../components/DownloadButton";
 import BackButton from "../../components/BackButton";
+import SaveButton from "../../components/SaveButton";
 
 export const revalidate = 0;
 
@@ -53,6 +54,10 @@ export default async function WatchPage({
       </div>
       <div className="watch-title">{film.title}</div>
       {film.category && <div className="watch-category">{film.category}</div>}
+
+      <div className="save-section">
+        <SaveButton filmId={film.id} />
+      </div>
 
       <div className="download-section">
         <DownloadButton
