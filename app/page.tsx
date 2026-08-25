@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import SearchGrid from "./components/SearchGrid";
+import SiteLogo from "./components/SiteLogo";
 
 export const revalidate = 0;
 
@@ -32,7 +33,7 @@ export default async function HomePage() {
     <main>
       <header className="header">
         <a href="/" className="logo-link">
-          <h1>HausaFlix</h1>
+          <SiteLogo />
           <div className="tagline">Watch the best Hausa movies</div>
         </a>
       </header>
