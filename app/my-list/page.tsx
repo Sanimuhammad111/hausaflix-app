@@ -1,10 +1,10 @@
-export default function MePage() {
+export default function MyListPage() {
   return (
     <main>
       <header className="header">
-        <h1>Me</h1>
+        <h1>My List</h1>
       </header>
-      <p className="empty">Sashen profile — za a ƙara fasali nan gaba.</p>
+      <p className="empty">Ba ka riga ka ajiye wani fim ba tukuna.</p>
     </main>
   );
 }
