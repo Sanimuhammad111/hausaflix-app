@@ -538,17 +538,4 @@ a {
 
 .btn-save {
   width: 100%;
-  background: transparent;
-  border: 1px solid #666;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-save.saved {
-  border-color: #e50914;
-  color: #e50914;
-}
+  backgr
