@@ -538,4 +538,78 @@ a {
 
 .btn-save {
   width: 100%;
-  backgr
+  background: transparent;
+  border: 1px solid #666;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-save.saved {
+  border-color: #e50914;
+  color: #e50914;
+}
+
+.admin-wrap {
+  padding: 20px 24px 40px;
+  max-width: 500px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  gap: 10px;
+}
+
+.admin-row-info .title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-row-info .category {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.admin-row-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.admin-row-actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.site-logo {
+  height: 28px;
+  display: block;
+}
+
+.admin-divider {
+  height: 1px;
+  background: #1e1e1e;
+  margin: 24px 0;
+  }
