@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import BottomNav from "./components/BottomNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <BottomNav />
         <Script src="https://js.paystack.co/v1/inline.js" strategy="beforeInteractive" />
         <Script id="register-sw" strategy="afterInteractive">
           {`
