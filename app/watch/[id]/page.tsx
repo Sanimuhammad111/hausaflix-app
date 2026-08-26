@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import DownloadButton from "../../components/DownloadButton";
 import BackButton from "../../components/BackButton";
 import SaveButton from "../../components/SaveButton";
+import FullscreenButton from "../../components/FullscreenButton";
 
 export const revalidate = 0;
 
@@ -45,13 +46,15 @@ export default async function WatchPage({
   return (
     <main className="player-wrap">
       <BackButton />
-      <div className="player-frame">
+      <div className="player-frame" id="player-frame">
         <iframe
+          id="video-iframe"
           src={embedUrl}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen
         />
       </div>
+      <FullscreenButton />
       <div className="watch-title">{film.title}</div>
       {film.category && <div className="watch-category">{film.category}</div>}
 
